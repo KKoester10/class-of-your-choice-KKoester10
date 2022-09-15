@@ -10,7 +10,7 @@ namespace DnD_CharacterSheet
     {
         public string Name { get; set; }
         public int ArmorClass { get; set; }
-        public Dictionary<String,int> Inventory{ get; set; }
+        public Dictionary<string,int> Inventory { get; set; }
         public int HitPoints { get; set; }
         public int Speed { get; set; }
         public int Experiance { get; set; }
@@ -23,7 +23,7 @@ namespace DnD_CharacterSheet
         public void AddItemToInventory(string item , int amount)
         {
             // Add items to inventory
-           // Inventory.Add(item, amount);
+            Inventory.Add(item, amount);
         }
         public void RemoveItemFromInventory(string item, int amount)
         {
@@ -40,20 +40,31 @@ namespace DnD_CharacterSheet
             // increase Armor class by user input
             ArmorClass += userInput;
         }
-        public void Attack()
+        public void Attacked()
         {
-            // attack will be - 5 points from bots health
+  
+            if (ArmorClass > 25)
+            {
+                Console.WriteLine("You missed your attack...");
+            }
+            else
+            {
+                Console.WriteLine("You were able to hit the killer Robot");
+                HitPoints -= 5;
+            }
+            
 
         }
         public void Block()
         {
             if (ArmorClass > 20 )
             {
-                Console.WriteLine("You blocked the Robots attack!");
+                Console.WriteLine("You blocked the Killer Robots attack!");
             }
             else
             {
-                Console.WriteLine("Robot Hit you!");
+                Console.WriteLine("The Killer Robot Hit you!");
+                Thread.Sleep(1000);
                 HitPoints -= 5;
             }
         }

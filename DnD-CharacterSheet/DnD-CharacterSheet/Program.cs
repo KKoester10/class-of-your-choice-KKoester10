@@ -3,17 +3,18 @@
 CharacterSheet deadlyRobot = new CharacterSheet();
 Random randomNum = new Random();
 deadlyRobot.Name = "Bot";
-deadlyRobot.ArmorClass = randomNum.Next(0,35);
-deadlyRobot.HitPoints = randomNum.Next(0, 15);
+deadlyRobot.ArmorClass = randomNum.Next(1,35);
+deadlyRobot.HitPoints = randomNum.Next(1, 15);
 deadlyRobot.Speed = 30;
+deadlyRobot.AddItemToInventory("gold", 30);
 CharacterSheet userCharacter = new CharacterSheet();
 CharacterSheet defaultCharacter = new CharacterSheet();
 
 Console.WriteLine("Welcome to your DnD Character Sheet!");
-var isrunning = true;
 Console.WriteLine("Would you like to use our default values or enter your Own values? \nPlease type 'default' for default or 'user' for user values");
 Console.WriteLine("please select numbers 1 or 2.");
 Console.WriteLine("1.) User \n2.) Default");
+
 if (Console.ReadLine() == "1")
 { 
 	Console.WriteLine("Enter the name of your character");
@@ -35,12 +36,13 @@ else
 	userCharacter = defaultCharacter;
 		
 }
-
+Console.Clear();
+var isrunning = true;
 while (isrunning)
 {
-	Console.WriteLine("MENU");
+    Console.WriteLine("MENU");
 	Console.WriteLine("What would you like to do with your character?");
-	Console.WriteLine("1.) End Application \n2.) Mananing Items in your Inventory. \n3.) Managing your Armor Class \n4.) Fight another character" );
+	Console.WriteLine("1.) End Application \n2.) Mananing Items in your Inventory. \n3.) Managing your Armor Class \n4.) Battle a Killer Robot" );
 	switch (Console.ReadLine())
 	{
 		case "1":
@@ -79,43 +81,73 @@ while (isrunning)
 				switch (Console.ReadLine())
 				{
 					case "1":
+						Console.WriteLine("Please enter an amount you would like to add");
+						userCharacter.IncreaseArmorClass(int.Parse(Console.ReadLine()));
 						break;
 					case "2":
+						Console.WriteLine("Please enter an amount you would like to decrease");
+						userCharacter.DecreaseArmorClass(int.Parse(Console.ReadLine()));
 						break;
 					case "3":
 						managingArmorClass = false;
 						break;
 				}
-			}
+				Console.Clear();
+                Console.WriteLine(userCharacter.Name + "'s Armor Class is now: " + userCharacter.ArmorClass);
+
+            }
 			Console.Clear();
 			break;
 		case "4":
 			Console.Clear();
-			Console.WriteLine("Warning if your Character dies game is OVER.");
-			Console.WriteLine("How would you like to attack the Enemy Robot?");
 			bool isfighting = true;
 			while (isfighting)
 			{
+               if (userCharacter.HitPoints <= 0)
+				{
+					Console.WriteLine(userCharacter.Name + " has been horribly injured by a killer Robot!");
+					userCharacter.HitPoints = randomNum.Next(1,5);
+                    Thread.Sleep(5000);
+                    break;
+				}
+                if (deadlyRobot.HitPoints <= 0)
+                {
+                    Console.WriteLine("Congradulation!!! You have killed the Evil Killer Robot");
+					deadlyRobot.HitPoints = 20;
+					Thread.Sleep(5000);
+                    userCharacter.Experiance += 200;
+                    break;
+                }
+                Console.WriteLine("Warning if your Character dies game is OVER and Hitpoints are set to 1.");
+                Console.WriteLine("What would you like to do?");
                 Console.WriteLine("please select numbers 1-3.");
                 Console.WriteLine("1.) Attack \n2.) Block \n3.) Run \n4.) Exit to Menu");
 				Console.WriteLine("Name: " + userCharacter.Name);
 				Console.WriteLine("Armor Class: " + userCharacter.ArmorClass);
 				Console.WriteLine("Hitpoints: " + userCharacter.HitPoints);
 				Console.WriteLine("Speed: " + userCharacter.Speed);
+				
                 switch (Console.ReadLine())
 				{
 					case "1":
+						Console.Clear();
+						deadlyRobot.Attacked();
 						break;
 					case "2":
+						Console.Clear();
 						userCharacter.Block();
 						break;
 					case "3":
+						Console.Clear();
+						userCharacter.Run();
 						break;
 					case "4":
-						isfighting = false;
+						Console.Clear();
+						Console.WriteLine("You wont be able to get out this way...The way is shut it was made by the DEAD");
 						break;
 				}
 			}
+			
 			Console.Clear();
 			break;
 		default:
