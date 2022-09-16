@@ -1,19 +1,18 @@
 ﻿using DnD_CharacterSheet;
 
+
+Console.WriteLine("Welcome to your DnD Character Sheet!");
+Console.WriteLine("Would you like to use our default values or enter your Own values? \nPlease type 'default' for default or 'user' for user values");
+Console.WriteLine("please select numbers 1 or 2.");
+Console.WriteLine("1.) User \n2.) Default");
+CharacterSheet userCharacter = new CharacterSheet();
+CharacterSheet defaultCharacter = new CharacterSheet();
 CharacterSheet deadlyRobot = new CharacterSheet();
 Random randomNum = new Random();
 deadlyRobot.Name = "Bot";
 deadlyRobot.ArmorClass = randomNum.Next(1,35);
 deadlyRobot.HitPoints = randomNum.Next(1, 15);
 deadlyRobot.Speed = 30;
-deadlyRobot.AddItemToInventory("gold", 30);
-CharacterSheet userCharacter = new CharacterSheet();
-CharacterSheet defaultCharacter = new CharacterSheet();
-
-Console.WriteLine("Welcome to your DnD Character Sheet!");
-Console.WriteLine("Would you like to use our default values or enter your Own values? \nPlease type 'default' for default or 'user' for user values");
-Console.WriteLine("please select numbers 1 or 2.");
-Console.WriteLine("1.) User \n2.) Default");
 
 if (Console.ReadLine() == "1")
 { 
@@ -59,13 +58,21 @@ while (isrunning)
                 switch (Console.ReadLine())
 				{
 					case "1":
+						Console.WriteLine("please enter the item name and then the amount you have");
+						userCharacter.AddItemToInventory(Console.ReadLine(), int.Parse(Console.ReadLine()));
 						break;
 					case "2":
+						Console.WriteLine("Please enter the name of the item you would like to remove.");
+						userCharacter.RemoveItemFromInventory(Console.ReadLine());
 						break;
 					case "3":
 						inInventory = false;
 						break;
-				}
+                    default:
+						Console.Clear();
+                        Console.WriteLine("Sorry I dont understand");
+                        break;
+                }
 			}
 			Console.Clear();
 			break;
@@ -91,8 +98,10 @@ while (isrunning)
 					case "3":
 						managingArmorClass = false;
 						break;
-				}
-				Console.Clear();
+                    default:
+                        Console.WriteLine("Sorry I dont understand");
+                        break;
+                }
                 Console.WriteLine(userCharacter.Name + "'s Armor Class is now: " + userCharacter.ArmorClass);
 
             }
@@ -101,6 +110,7 @@ while (isrunning)
 		case "4":
 			Console.Clear();
 			bool isfighting = true;
+			Console.WriteLine("Warning if your Character dies game is OVER and Hitpoints are set to 1.");
 			while (isfighting)
 			{
                if (userCharacter.HitPoints <= 0)
@@ -118,10 +128,11 @@ while (isrunning)
                     userCharacter.Experiance += 200;
                     break;
                 }
-                Console.WriteLine("Warning if your Character dies game is OVER and Hitpoints are set to 1.");
+                
                 Console.WriteLine("What would you like to do?");
                 Console.WriteLine("please select numbers 1-3.");
                 Console.WriteLine("1.) Attack \n2.) Block \n3.) Run \n4.) Exit to Menu");
+				Console.WriteLine("Your Character");
 				Console.WriteLine("Name: " + userCharacter.Name);
 				Console.WriteLine("Armor Class: " + userCharacter.ArmorClass);
 				Console.WriteLine("Hitpoints: " + userCharacter.HitPoints);
@@ -130,27 +141,31 @@ while (isrunning)
                 switch (Console.ReadLine())
 				{
 					case "1":
-						Console.Clear();
 						deadlyRobot.Attacked();
 						break;
 					case "2":
-						Console.Clear();
 						userCharacter.Block();
 						break;
 					case "3":
-						Console.Clear();
 						userCharacter.Run();
 						break;
 					case "4":
 						Console.Clear();
 						Console.WriteLine("You wont be able to get out this way...The way is shut it was made by the DEAD");
+						Thread.Sleep(5000);
+						Console.Clear();
+						break;
+					default:
+						Console.Clear();
+						Console.WriteLine("Sorry I dont understand");
 						break;
 				}
 			}
 			
 			Console.Clear();
 			break;
-		default:
-			break;
-	}
+        default:
+            Console.WriteLine("Sorry I dont understand");
+            break;
+    }
 }
