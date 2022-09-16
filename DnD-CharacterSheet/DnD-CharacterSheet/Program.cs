@@ -1,8 +1,7 @@
 ﻿using DnD_CharacterSheet;
 
-
 Console.WriteLine("Welcome to your DnD Character Sheet!");
-Console.WriteLine("Would you like to use our default values or enter your Own values? \nPlease type 'default' for default or 'user' for user values");
+Console.WriteLine("Would you like to use our default values or enter your Own values?");
 Console.WriteLine("please select numbers 1 or 2.");
 Console.WriteLine("1.) User \n2.) Default");
 CharacterSheet userCharacter = new CharacterSheet();
@@ -79,7 +78,6 @@ while (isrunning)
 		case "3":
 			Console.Clear();
 			Console.WriteLine("Would you like to increase your Armor Class? Or would you like to decrease your Armor Class?");
-
 			bool managingArmorClass = true;
 			while (managingArmorClass)
 			{
@@ -103,7 +101,6 @@ while (isrunning)
                         break;
                 }
                 Console.WriteLine(userCharacter.Name + "'s Armor Class is now: " + userCharacter.ArmorClass);
-
             }
 			Console.Clear();
 			break;
@@ -122,22 +119,17 @@ while (isrunning)
 				}
                 if (deadlyRobot.HitPoints <= 0)
                 {
-                    Console.WriteLine("Congradulation!!! You have killed the Evil Killer Robot");
-					deadlyRobot.HitPoints = 20;
-					Thread.Sleep(5000);
+                    Console.WriteLine("Congradulation!!! You have killed the Evil Killer Robot \nYou have gained 200 Experiance");
+					deadlyRobot.HitPoints = randomNum.Next(10,20);
                     userCharacter.Experiance += 200;
+					Console.WriteLine($"{userCharacter.Name} Experiance Amount is {userCharacter.Experiance}");
+					Thread.Sleep(5000);
                     break;
                 }
-                
                 Console.WriteLine("What would you like to do?");
                 Console.WriteLine("please select numbers 1-3.");
                 Console.WriteLine("1.) Attack \n2.) Block \n3.) Run \n4.) Exit to Menu");
-				Console.WriteLine("Your Character");
-				Console.WriteLine("Name: " + userCharacter.Name);
-				Console.WriteLine("Armor Class: " + userCharacter.ArmorClass);
-				Console.WriteLine("Hitpoints: " + userCharacter.HitPoints);
-				Console.WriteLine("Speed: " + userCharacter.Speed);
-				
+				Console.WriteLine($"Your Character \nName: {userCharacter.Name}\nArmor Class: {userCharacter.ArmorClass}\nHitpoints: {userCharacter.HitPoints}\nSpeed: {userCharacter.Speed}");
                 switch (Console.ReadLine())
 				{
 					case "1":
@@ -161,7 +153,6 @@ while (isrunning)
 						break;
 				}
 			}
-			
 			Console.Clear();
 			break;
         default:

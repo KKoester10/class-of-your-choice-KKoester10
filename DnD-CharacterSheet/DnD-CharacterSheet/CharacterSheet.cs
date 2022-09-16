@@ -40,7 +40,7 @@ namespace DnD_CharacterSheet
             Console.WriteLine("YOUR INVENTORY");
             foreach (var items in Inventory)
             {
-                Console.WriteLine(items.Key + " " + items.Value);
+                Console.WriteLine(items.Key + " " + items.Value + "\n");
             }
         }
         public void DecreaseArmorClass(int userInput)
@@ -69,8 +69,6 @@ namespace DnD_CharacterSheet
                 Console.WriteLine("You were able to hit the killer Robot");
                 HitPoints -= 5;
             }
-            
-
         }
         public void Block()
         {
