@@ -2,7 +2,7 @@
 
 Console.WriteLine("Welcome to your DnD Character Sheet!");
 Console.WriteLine("Would you like to use our default values or enter your Own values?");
-Console.WriteLine("please select numbers 1 or 2.");
+Console.WriteLine("Select numbers 1 or 2.");
 Console.WriteLine("1.) User \n2.) Default");
 CharacterSheet userCharacter = new CharacterSheet();
 CharacterSheet defaultCharacter = new CharacterSheet();
@@ -52,17 +52,25 @@ while (isrunning)
 			bool inInventory = true;
 			while (inInventory)
 			{
-                Console.WriteLine("please select numbers 1-3.");
+                Console.WriteLine("Select numbers 1-3.");
                 Console.WriteLine("1.) Add \n2.) Remove \n3.) Exit to Menu");
                 switch (Console.ReadLine())
 				{
 					case "1":
-						Console.WriteLine("please enter the item name and then the amount you have");
-						userCharacter.AddItemToInventory(Console.ReadLine(), int.Parse(Console.ReadLine()));
-						break;
+                        Console.Clear();
+                        Console.WriteLine("Enter the item's name");
+						var item = Console.ReadLine();
+						Console.WriteLine("Enter the amount of the item you have");
+						var amount = Console.ReadLine();
+                        userCharacter.AddItemToInventory(item, int.Parse(amount));
+                        break;
 					case "2":
-						Console.WriteLine("Please enter the name of the item you would like to remove.");
-						userCharacter.RemoveItemFromInventory(Console.ReadLine());
+                        Console.Clear();
+                        Console.WriteLine("Enter the name of the item you would like to remove.");
+						var itemR = Console.ReadLine();
+						Console.WriteLine("Enter the the amount you want removed");
+						var amountR = int.Parse(Console.ReadLine());
+						userCharacter.RemoveItemFromInventory(itemR,amountR);
 						break;
 					case "3":
 						inInventory = false;
@@ -144,8 +152,11 @@ while (isrunning)
 					case "4":
 						Console.Clear();
 						Console.WriteLine("You wont be able to get out this way...The way is shut it was made by the DEAD");
-						Thread.Sleep(5000);
-						Console.Clear();
+						Thread.Sleep(3000);
+						Console.WriteLine("Just kidding Thanks for playing!");
+                        Thread.Sleep(5000);
+						isfighting = false;
+                        Console.Clear();
 						break;
 					default:
 						Console.Clear();
@@ -160,3 +171,6 @@ while (isrunning)
             break;
     }
 }
+Console.Clear();
+Console.WriteLine("Thank you for playing!");
+Thread.Sleep(5000);

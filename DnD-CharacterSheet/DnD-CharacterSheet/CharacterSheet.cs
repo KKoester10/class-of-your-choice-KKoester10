@@ -29,18 +29,21 @@ namespace DnD_CharacterSheet
             Console.WriteLine("YOUR INVENTORY");
             foreach (var items in Inventory)
             {
-                Console.WriteLine(items.Key + " " + items.Value);
+                Console.WriteLine($"{items.Key} : {items.Value}");
             }
         }
-        public void RemoveItemFromInventory(string item)
+        public void RemoveItemFromInventory(string item, int amount)
         {
-            // remove items to inventory
-            Inventory.Remove(item);
+            //Removes amount of item from a list
+            if ((Inventory[item] -= amount) < 0)
+            {
+                Inventory.Remove(item);
+            }
             Console.Clear();
             Console.WriteLine("YOUR INVENTORY");
             foreach (var items in Inventory)
             {
-                Console.WriteLine(items.Key + " " + items.Value + "\n");
+                Console.WriteLine($"{items.Key} : {items.Value}");
             }
         }
         public void DecreaseArmorClass(int userInput)
